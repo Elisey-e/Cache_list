@@ -14,7 +14,7 @@ using std::cin, std::cout, std::endl, std::unordered_map, std::vector, std::list
 #define ZERO_USED 0
 
 int hash_f(int x){
-    return x;
+    return x % 1000;
 }
 
 int main(){
@@ -29,22 +29,27 @@ int main(){
     int el, cached_el_count = 0, hit = 0;
     for (int i = 0; i < el_count; i++){
         cin >> el;
-
-        if (hash_table.find(hash_f(el)) == hash_table.end()){   // If table doesn't have element
+        auto hash_el = hash_f(el);
+        if (hash_table.find(hash_el) == hash_table.end() || hash_table[hash_el].find(el) == hash_table[hash_el].end()){   // If table doesn't have element
             if (cached_el_count == size_of_cache){
                 if (not memc[ONE_USED].empty()){                // else cache is finally filled
                     hash_table[hash_f(el)].insert(el);
-                    ++cached_el_count;
-                    map_of_el_index[memc[ONE_USED].front()] = ZERO_USED;
+                    //map_of_el_index[memc[ONE_USED].front()] = ZERO_USED;
+                    auto del_el = memc[ONE_USED].front();
+                    map_of_el_index.erase(memc[ONE_USED].front());
+                    hash_table[hash_f(del_el)].erase(del_el);
                     map_of_el_index[el] = ONE_USED;
-                    memc[ONE_USED].pop_back();
-                    memc[ONE_USED].push_front(el);
+                    memc[ONE_USED].pop_front();
+                    memc[ONE_USED].push_back(el);
+                }
+                else{
+                    continue;
                 }
             }
             else{
                 hash_table[hash_f(el)].insert(el);
                 ++cached_el_count;
-                memc[ONE_USED].push_front(el);
+                memc[ONE_USED].push_back(el);
                 map_of_el_index[el] = ONE_USED;
             }
         }
