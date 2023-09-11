@@ -17,7 +17,6 @@ int hash_f(int x){
     return x;
 }
 
-
 int main(){
 
     unordered_map<int, list<int>> memc = {};
