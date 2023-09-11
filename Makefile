@@ -3,7 +3,7 @@ CFLAGS=-c -Wall -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfl
 LDFLAGS=
 SOURCES=cache.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=application
+EXECUTABLE=application.exe
 
 all: $(SOURCES) $(EXECUTABLE)
 	
