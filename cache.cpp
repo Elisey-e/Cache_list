@@ -6,27 +6,6 @@
 #include <set>
 #include <algorithm>
 
-
-
-
-
-
-
-
-//Закоммить в гитхаб прямо сейчас
-
-
-
-
-
-
-
-
-
-
-
-
-
 int hash_f(int x);
 
 using std::cin, std::cout, std::endl, std::unordered_map, std::vector, std::list, std::set;
