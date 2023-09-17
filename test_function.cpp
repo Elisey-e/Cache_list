@@ -8,4 +8,6 @@ int main(){
         cout << "LFU cache result: ";
         test.perfect_cache();
     }
+
+    return 0;
 }
