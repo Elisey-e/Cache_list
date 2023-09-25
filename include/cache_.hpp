@@ -1,5 +1,5 @@
-#ifndef c_cache
-#define c_cache
+#ifndef cache_
+#define cache_
 
 #include <iostream>
 #include <unordered_map>

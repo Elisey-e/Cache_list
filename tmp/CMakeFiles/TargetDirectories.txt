@@ -1,0 +1,13 @@
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/CMakeFiles/edit_cache.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/CMakeFiles/rebuild_cache.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/CMakeFiles/list_install_components.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/CMakeFiles/install.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/CMakeFiles/install/local.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/CMakeFiles/install/strip.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/tests/CMakeFiles/test_function.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/tests/CMakeFiles/edit_cache.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/tests/CMakeFiles/rebuild_cache.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/tests/CMakeFiles/list_install_components.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/tests/CMakeFiles/install.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/tests/CMakeFiles/install/local.dir
+/home/elisey/Рабочий стол/Programming/VLADOS/TASK1_CACHE/tmp/tests/CMakeFiles/install/strip.dir
