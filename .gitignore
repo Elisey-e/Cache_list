@@ -36,3 +36,4 @@
 *.exe.stackdump
 /.vscode
 /doxy
+/tmp
