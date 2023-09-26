@@ -33,7 +33,7 @@ class cache_lfu{
     public:
         cache_lfu(size_t sz) : size_of_cache(sz) {}
 
-        bool lookup_update(page_t elem){
+        bool lookup_update(PAGES elem){
             int el = elem.id;
             auto hash_el = hash_f(elem.id);
             if (hash_table.find(hash_el) == hash_table.end() || hash_table[hash_el].find(el) == hash_table[hash_el].end()){   // If table doesn't have element

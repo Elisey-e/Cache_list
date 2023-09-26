@@ -78,7 +78,7 @@ class cache_perfect{
                 }
             }
             return false;
-    }
+        }
 };
 
 
