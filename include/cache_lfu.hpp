@@ -12,6 +12,7 @@
 #include "page_t.hpp"
 
 using std::cin, std::cout, std::endl, std::unordered_map, std::vector, std::list, std::set;
+using namespace page_functions;
 
 #define ONE_USED  1
 #define ZERO_USED 0
@@ -34,11 +35,11 @@ class cache_lfu{
 
         bool lookup_update(page_t elem){
             int el = elem.id;
-            auto hash_el = elem.hash_f();
+            auto hash_el = hash_f(elem.id);
             if (hash_table.find(hash_el) == hash_table.end() || hash_table[hash_el].find(el) == hash_table[hash_el].end()){   // If table doesn't have element
                 if (cached_el_count == size_of_cache){
                     if (not memc[ONE_USED].empty()){                // else cache is finally filled
-                        hash_table[elem.hash_f()].insert(el);
+                        hash_table[hash_el].insert(el);
                         //map_of_el_index[memc[ONE_USED].front()] = ZERO_USED;
                         auto del_el = memc[ONE_USED].front();
                         map_of_el_index.erase(memc[ONE_USED].front());
@@ -53,7 +54,7 @@ class cache_lfu{
                     }
                 }
                 else{
-                    hash_table[elem.hash_f()].insert(el);
+                    hash_table[hash_el].insert(el);
                     ++cached_el_count;
                     memc[ONE_USED].push_back(el);
                     map_of_el_index[el] = ONE_USED;
@@ -67,10 +68,6 @@ class cache_lfu{
                 return true;
             }
             return false;
-        }
-
-        int hash_f(int x){
-            return x % 1000;
         }
 };
 
