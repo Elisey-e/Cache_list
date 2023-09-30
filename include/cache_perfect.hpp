@@ -71,9 +71,11 @@ class cache_perfect{
                             break;
                         }
                     }
-                    if (elements_places[i].front() < maximum_pos){
-                        buff.insert(std::find(buff.begin(), buff.end(), el_with_max_pos), i);
-                        buff.erase(std::find(buff.begin(), buff.end(), el_with_max_pos));
+                    if (elements_places[i].size() != 0){
+                        if (elements_places[i].front() < maximum_pos){
+                            buff.insert(std::find(buff.begin(), buff.end(), el_with_max_pos), i);
+                            buff.erase(std::find(buff.begin(), buff.end(), el_with_max_pos));
+                        }
                     }
                 }
             }
