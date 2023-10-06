@@ -68,6 +68,7 @@ class cache_perfect{
                             maximum_pos = (int) buff.size();
                             el_with_max_pos = j;
                             buff.insert(std::find(buff.begin(), buff.end(), el_with_max_pos), i);
+                            buff.erase(std::find(buff.begin(), buff.end(), el_with_max_pos));
                             break;
                         }
                     }
