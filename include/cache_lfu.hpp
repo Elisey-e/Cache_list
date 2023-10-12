@@ -24,7 +24,7 @@ class cache_lfu{
         size_t size_of_cache = 0;
         int el_count = 0;
 
-        unordered_map<int, list<int>> memc = {};
+        unordered_map<int, set<int>> memc = {};
         unordered_map<int, set<int>> hash_table = {};
         unordered_map<int, int> map_of_el_index = {};
 
@@ -41,12 +41,12 @@ class cache_lfu{
                     if (not memc[ONE_USED].empty()){                // else cache is finally filled
                         hash_table[hash_el].insert(el);
                         //map_of_el_index[memc[ONE_USED].front()] = ZERO_USED;
-                        auto del_el = memc[ONE_USED].front();
-                        map_of_el_index.erase(memc[ONE_USED].front());
+                        auto del_el = *(memc[ONE_USED].begin());
+                        map_of_el_index.erase(*(memc[ONE_USED].begin()));
                         hash_table[hash_f(del_el)].erase(del_el);
                         map_of_el_index[el] = ONE_USED;
-                        memc[ONE_USED].pop_front();
-                        memc[ONE_USED].push_back(el);
+                        memc[ONE_USED].erase(memc[ONE_USED].begin());
+                        memc[ONE_USED].insert(memc[ONE_USED].end(), el);
                         return false;
                     }
                     else{
@@ -56,15 +56,15 @@ class cache_lfu{
                 else{
                     hash_table[hash_el].insert(el);
                     ++cached_el_count;
-                    memc[ONE_USED].push_back(el);
+                    memc[ONE_USED].insert(memc[ONE_USED].end(), el);
                     map_of_el_index[el] = ONE_USED;
                     return false;
                 }
             }
             else{
-                memc[map_of_el_index[el]].erase(std::find(memc[map_of_el_index[el]].begin(), memc[map_of_el_index[el]].end(), el));
+                memc[map_of_el_index[el]].erase(el);
                 ++map_of_el_index[el];
-                memc[map_of_el_index[el]].push_front(el);
+                memc[map_of_el_index[el]].insert(memc[map_of_el_index[el]].begin(), el);
                 return true;
             }
             return false;
