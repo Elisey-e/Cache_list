@@ -2,6 +2,7 @@
 #define CACHE_PAGE
 
 namespace page_functions{
+
     struct page_t{
         int id = 0;
     };

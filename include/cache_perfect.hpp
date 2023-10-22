@@ -29,6 +29,13 @@ class cache_perfect{
         unordered_map<int, list<int>> elements_places = {};
         set <int> buff = {};
 
+        bool buff_replace_elem(auto elem, int base){
+            auto ind1 = buff.find(elem);
+            buff.erase(ind1);
+            buff.insert(buff.end(), base);
+            return true;
+        }
+
     public:
         cache_perfect(size_t sz, vector <int>& data_i, int e_c) : size_of_cache(sz), el_count(e_c) {
             data.reserve((size_t) e_c);
@@ -38,46 +45,36 @@ class cache_perfect{
             }
         }
     
-        bool lookup_update(int i){
+        bool lookup_update(int i){    // namespace page_functions contain slow get page
             elements_places[i].pop_front();
-            if (buff.size() < size_of_cache){
-                if (buff.find(i) != buff.end()){
-                    return true;
-                }
-                else{
-                    buff.insert(buff.end(), i);
-                }
+            if(buff.find(i) != buff.end()){
+                return true;
+            }
+            else if (buff.size() < size_of_cache){
+                buff.insert(buff.end(), i);
             }
             else{
-                if (buff.find(i) != buff.end()){
-                    return true;
+                page_functions::slow_get_page(i);
+                   
+                int maximum_pos = 0;
+                int el_with_max_pos = 0;
+                if (elements_places[i].size() == 0){
+                    return false;
                 }
-                else{         
-                    int maximum_pos = 0;
-                    int el_with_max_pos;
-                    if (elements_places[i].size() == 0){
+                for (auto j : buff){
+                    if (elements_places[j].size() != 0){
+                        if (elements_places[j].front() > maximum_pos){
+                            el_with_max_pos = j;
+                            maximum_pos = elements_places[j].front();
+                        }
+                    }
+                    else{
+                        buff_replace_elem(j, i);
                         return false;
                     }
-                    for (auto j : buff){
-                        if (elements_places[j].size() != 0){
-                            if (elements_places[j].front() > maximum_pos){
-                                el_with_max_pos = j;
-                                maximum_pos = elements_places[j].front();
-                            }
-                        }
-                        else{
-                            auto ind1 = buff.find(j);
-                            buff.erase(ind1);
-                            buff.insert(buff.end(), i);
-                            return false;
-                        }
-                    }
-                    
-                    if (elements_places[i].front() < maximum_pos){
-                        auto ind1 = buff.find(el_with_max_pos);
-                        buff.erase(ind1);
-                        buff.insert(buff.end(), i);
-                    }
+                }
+                if (elements_places[i].front() < maximum_pos){
+                    buff_replace_elem(el_with_max_pos, i);
                 }
             }
             return false;

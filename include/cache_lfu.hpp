@@ -60,7 +60,7 @@ class cache_lfu{
     public:
         cache_lfu(size_t sz) : size_of_cache(sz) {}
 
-        bool lookup_update(PAGES elem){
+        bool lookup_update(PAGES elem){     // namespace page_functions contain slow get page
             int el = elem.id;
             auto hash_el = hash_f(elem.id);
 
