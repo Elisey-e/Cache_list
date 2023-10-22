@@ -38,13 +38,7 @@ class cache_lfu{
             auto del_el = *(memc[ONE_USED].begin());
             map_of_el_index.erase(del_el);
             hash_table[hash_f(del_el)].erase(del_el);
-            return true;
-        }
-
-        bool append_elem_to_once_used(int el){
-            map_of_el_index[el] = ONE_USED;
             memc[ONE_USED].erase(memc[ONE_USED].begin());
-            memc[ONE_USED].insert(memc[ONE_USED].end(), el);
             return true;
         }
 
@@ -57,7 +51,7 @@ class cache_lfu{
 
         bool use_elem_first_time(int el, auto hash_el){
             hash_table[hash_el].insert(el);
-            ++cached_el_count;
+            page_functions::slow_get_page(el);
             memc[ONE_USED].insert(memc[ONE_USED].end(), el);
             map_of_el_index[el] = ONE_USED;
             return true;
@@ -69,14 +63,13 @@ class cache_lfu{
         bool lookup_update(PAGES elem){
             int el = elem.id;
             auto hash_el = hash_f(elem.id);
-            
+
             if (not is_elem_exist(el, hash_el)){   // If table doesn't have element
                 if (cached_el_count == size_of_cache){
                     if (not memc[ONE_USED].empty()){                // else cache is finally filled
-                        hash_table[hash_el].insert(el);
 
                         delete_elem_from_once_used();
-                        append_elem_to_once_used(el);
+                        use_elem_first_time(el, hash_el);
 
                         return false;
                     }
@@ -85,6 +78,7 @@ class cache_lfu{
                     }
                 }
                 else{
+                    ++cached_el_count;
                     use_elem_first_time(el, hash_el);
                     return false;
                 }
