@@ -20,7 +20,7 @@ int main(){
     int hits = 0;
 
     std::cin >> m >> n;
-    vector <int> test_vec_id = {};
+    vector <standart_key_type> test_vec_id = {};
     for (int i = 0; i < n; ++i) {
         // if (i % 10000 == 0){
         //     cout << i;

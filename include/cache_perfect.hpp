@@ -17,19 +17,19 @@ using namespace page_functions;
 #define ONE_USED  1
 #define ZERO_USED 0
 
-template <typename PAGES, typename KeyT = int>
+template <typename PAGES, typename KeyT = standart_key_type>
 class cache_perfect{
 
     private:
-        vector <int> data = {};
+        vector <KeyT> data = {};
         size_t size_of_cache = 0;
         int el_count = 0;
-        int curr_elem = 0;
+        KeyT curr_elem = 0;
 
-        unordered_map<int, list<int>> elements_places = {};
-        set <int> buff = {};
+        unordered_map<KeyT, list<int>> elements_places = {};
+        set <KeyT> buff = {};
 
-        bool buff_replace_elem(auto elem, int base){
+        bool buff_replace_elem(auto elem, auto base){
             auto ind1 = buff.find(elem);
             buff.erase(ind1);
             buff.insert(buff.end(), base);
@@ -37,7 +37,7 @@ class cache_perfect{
         }
 
     public:
-        cache_perfect(size_t sz, vector <int>& data_i, int e_c) : size_of_cache(sz), el_count(e_c) {
+        cache_perfect(size_t sz, vector <KeyT>& data_i, int e_c) : size_of_cache(sz), el_count(e_c) {
             data.reserve((size_t) e_c);
             for (int i = 0; i < el_count; ++i){              
                 data[i] = data_i[i];
@@ -45,7 +45,7 @@ class cache_perfect{
             }
         }
     
-        bool lookup_update(int i){    // namespace page_functions contain slow get page
+        bool lookup_update(KeyT i){    // namespace page_functions contain slow get page
             elements_places[i].pop_front();
             if(buff.find(i) != buff.end()){
                 return true;
@@ -57,7 +57,7 @@ class cache_perfect{
                 page_functions::slow_get_page(i);
                    
                 int maximum_pos = 0;
-                int el_with_max_pos = 0;
+                KeyT el_with_max_pos = 0;
                 if (elements_places[i].size() == 0){
                     return false;
                 }

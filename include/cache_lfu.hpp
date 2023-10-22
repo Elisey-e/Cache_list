@@ -17,20 +17,20 @@ using namespace page_functions;
 #define ONE_USED  1
 #define ZERO_USED 0
 
-template <typename PAGES, typename KeyT = int>
+template <typename PAGES, typename KeyT = standart_key_type>
 class cache_lfu{
 
     private:
         size_t size_of_cache = 0;
         int el_count = 0;
 
-        unordered_map<int, set<int>> memc = {};
-        unordered_map<int, set<int>> hash_table = {};
-        unordered_map<int, int> map_of_el_index = {};
+        unordered_map<int, set<standart_key_type>> memc = {};
+        unordered_map<standart_key_type, set<int>> hash_table = {};
+        unordered_map<standart_key_type, int> map_of_el_index = {};
 
         size_t cached_el_count = 0;
 
-        bool is_elem_exist(int el, auto hash_el){
+        bool is_elem_exist(standart_key_type el, int hash_el){
             return not (hash_table.find(hash_el) == hash_table.end() || hash_table[hash_el].find(el) == hash_table[hash_el].end());
         }
 
@@ -42,14 +42,14 @@ class cache_lfu{
             return true;
         }
 
-        bool use_elem_once_more_time(int el){
+        bool use_elem_once_more_time(standart_key_type el){
             memc[map_of_el_index[el]].erase(el);
             ++map_of_el_index[el];
             memc[map_of_el_index[el]].insert(memc[map_of_el_index[el]].begin(), el);
             return true;
         }
 
-        bool use_elem_first_time(int el, auto hash_el){
+        bool use_elem_first_time(standart_key_type el, int hash_el){
             hash_table[hash_el].insert(el);
             page_functions::slow_get_page(el);
             memc[ONE_USED].insert(memc[ONE_USED].end(), el);
@@ -61,8 +61,8 @@ class cache_lfu{
         cache_lfu(size_t sz) : size_of_cache(sz) {}
 
         bool lookup_update(PAGES elem){     // namespace page_functions contain slow get page
-            int el = elem.id;
-            auto hash_el = hash_f(elem.id);
+            standart_key_type el = elem.id;
+            int hash_el = hash_f(elem.id);
 
             if (not is_elem_exist(el, hash_el)){   // If table doesn't have element
                 if (cached_el_count == size_of_cache){
