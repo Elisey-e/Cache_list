@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 
 project(cache_list)
 
+#git rm --cached .vscode
 
 if (${PROJECT_SOURCE_DIR} STREQUAL ${PROJECT_BINARY_DIR})
     message(FATAL_ERROR "In-source build is forbidden")
