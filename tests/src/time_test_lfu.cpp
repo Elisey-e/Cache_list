@@ -19,9 +19,11 @@ int main(){
 
     int hits = 0;
     for (int i = 0; i < n; ++i) {
-        // if (i % 10000 == 0){
-        //     cout << (i * 100 / n) << endl;
-        // }
+        #if 0
+        if (i % 10000 == 0){
+            cout << (i * 100 / n) << endl;
+        }
+        #endif
         page_t p;
         std::cin >> p.id;
         assert(std::cin.good());
