@@ -19,7 +19,7 @@ The following applications have to be installed:
 
 ## How to build
 
-### 0) Make sure you are in the subdirectory of root directory of the project (i.e. LFU_Cache/)
+### 0) Make sure you are in the subdirectory of root directory of the project
 
 ### 1) Build cache
 
